@@ -68,6 +68,14 @@ SELECT scheduleID, scheduleDate, scheduleStart, scheduleEnd, scheduleType
 FROM Schedules 
 WHERE scheduleID = :scheduleID_selected_from_schedule_page;
 
+-- Get reserved tables on a particular date, which is helpful for managing table assignments.
+SELECT tableID, tableSection, tableType, availabilityStatus
+FROM Tables
+WHERE tableID IN (
+    SELECT tableID
+    FROM Reservations
+    WHERE reservationDate = '2024-11-07'
+);
 -- Add a new customer with relevant details.
 -- Inserts a new customer’s name, contact info, and preferred table location, so they’re registered in the system.
 INSERT INTO Customers (firstName, lastName, email, phoneNumber, tablePreference) 
