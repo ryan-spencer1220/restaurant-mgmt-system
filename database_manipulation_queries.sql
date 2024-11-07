@@ -201,5 +201,13 @@ WHERE reservationStatus = 'Booked'
 GROUP BY reservationTime
 ORDER BY reservationCount DESC;
 
+-- Track the most frequent customers based on the number of reservations
+-- Will help managers when we offer discounts, loyalty program, deals, etc 
+SELECT Customers.customerID, CONCAT(Customers.firstName, ' ', Customers.lastName) AS customerName, 
+       COUNT(Reservations.reservationID) AS reservationCount
+FROM Customers
+INNER JOIN Reservations ON Customers.customerID = Reservations.customerID
+GROUP BY Customers.customerID, customerName
+ORDER BY reservationCount DESC;
 
 
