@@ -193,4 +193,13 @@ WHERE Reservations.reservationStatus = 'Completed'
 GROUP BY Tables.tableSection
 ORDER BY reservationCount DESC;
 
+-- Get the busiest times for dining by counting reservations per hour.
+-- This will help managers make adjustments to manage peak hours, such as assigning more staff during those hours, etc
+SELECT reservationTime, COUNT(*) AS reservationCount
+FROM Reservations
+WHERE reservationStatus = 'Booked'
+GROUP BY reservationTime
+ORDER BY reservationCount DESC;
+
+
 
