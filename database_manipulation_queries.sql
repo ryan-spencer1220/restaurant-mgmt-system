@@ -74,8 +74,9 @@ FROM Tables
 WHERE tableID IN (
     SELECT tableID
     FROM Reservations
-    WHERE reservationDate = '2024-11-07'
+    WHERE reservationDate = :reservationDate
 );
+
 -- Add a new customer with relevant details.
 -- Inserts a new customer’s name, contact info, and preferred table location, so they’re registered in the system.
 INSERT INTO Customers (firstName, lastName, email, phoneNumber, tablePreference) 
