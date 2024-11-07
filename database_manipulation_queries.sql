@@ -182,3 +182,15 @@ FROM Staff;
 -- Pulls all shift details to help managers assign shifts to staff members.
 SELECT scheduleID, scheduleDate, scheduleStart, scheduleEnd, scheduleType 
 FROM Schedules;
+
+-- Below are some of more advanced queries that deal with deeper analytics 
+
+-- Get the most popular table sections based on how many were linked to completed reservations  
+SELECT Tables.tableSection, COUNT(*) AS reservationCount
+FROM Reservations
+INNER JOIN Tables ON Reservations.tableID = Tables.tableID
+WHERE Reservations.reservationStatus = 'Completed'
+GROUP BY Tables.tableSection
+ORDER BY reservationCount DESC;
+
+
