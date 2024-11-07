@@ -219,4 +219,15 @@ INNER JOIN Reservations ON Customers.customerID = Reservations.customerID
 GROUP BY Customers.customerID, customerName
 ORDER BY reservationCount DESC;
 
+-- Update tables to 'Available' as soon as their reservations are completed.
+-- Helps managers and staff keep real-time accuracy of which tables are truly open and ready for the next guests
+UPDATE Tables
+SET availabilityStatus = 'Available'
+WHERE tableID IN (
+    SELECT tableID
+    FROM Reservations
+    WHERE reservationStatus = 'Completed'
+);
+
+
 
