@@ -130,68 +130,55 @@ SET scheduleDate = :scheduleDateInput, scheduleStart = :scheduleStartInput,
     scheduleEnd = :scheduleEndInput, scheduleType = :scheduleTypeInput 
 WHERE scheduleID = :scheduleID_from_update_form;
 
--- Delete a customer based on the customerID selected.
 -- Removes a customer from the system using their unique ID, keeping the list clean and current.
 DELETE FROM Customers 
 WHERE customerID = :customerID_selected_for_delete;
 
--- Delete a reservation based on the reservationID selected.
 -- Deletes a reservation entry using its ID, helpful if a customer cancels or needs to reschedule.
 DELETE FROM Reservations 
 WHERE reservationID = :reservationID_selected_for_delete;
 
--- Delete a table based on the tableID selected.
 -- Removes a table entry by its ID, useful if tables are reconfigured or removed.
 DELETE FROM Tables 
 WHERE tableID = :tableID_selected_for_delete;
 
--- Delete a staff member based on the staffID selected.
 -- Removes a staff member from the records using their ID, helping keep employee records accurate.
 DELETE FROM Staff 
 WHERE staffID = :staffID_selected_for_delete;
 
--- Delete a schedule based on the scheduleID selected.
 -- Deletes a shift by its ID, used when a shift needs to be removed from the schedule.
 DELETE FROM Schedules 
 WHERE scheduleID = :scheduleID_selected_for_delete;
 
--- Associate a staff member with a schedule (many-to-many relationship).
 -- Links a staff member to a specific schedule, useful for shift planning.
 INSERT INTO staffSchedules (staffID, scheduleID) 
 VALUES (:staffIDInput, :scheduleIDInput);
 
--- Disassociate a staff member from a schedule (many-to-many relationship deletion).
 -- Removes a staff member’s association with a particular shift, helping adjust schedules.
 DELETE FROM staffSchedules 
 WHERE staffID = :staffID_selected AND scheduleID = :scheduleID_selected;
 
--- Associate a staff member with a table (many-to-many relationship).
 -- Links a staff member to a specific table, great for setting up seating assignments.
 INSERT INTO staffTables (staffID, tableID) 
 VALUES (:staffIDInput, :tableIDInput);
 
--- Disassociate a staff member from a table (many-to-many relationship deletion).
 -- Removes a staff member’s association with a particular table, useful if seating arrangements change.
 DELETE FROM staffTables 
 WHERE staffID = :staffID_selected AND tableID = :tableID_selected;
 
--- Get all customer names for dropdown selection in the Reservation form.
 -- Pulls customer IDs and full names so they can be selected when making a reservation.
 SELECT customerID, CONCAT(firstName, ' ', lastName) AS customerName 
 FROM Customers;
 
--- Get all available tables for dropdown selection in the Reservation form.
 -- Fetches table IDs and sections for selection when choosing a table for a new reservation.
 SELECT tableID, tableSection 
 FROM Tables 
 WHERE availabilityStatus = 'Available';
 
--- Get all staff IDs and names for dropdown selection in schedule assignment.
 -- Loads staff IDs and names so managers can assign specific staff to shifts.
 SELECT staffID, CONCAT(firstName, ' ', lastName) AS staffName 
 FROM Staff;
 
--- Get all schedule IDs and details for dropdown selection in staff scheduling.
 -- Pulls all shift details to help managers assign shifts to staff members.
 SELECT scheduleID, scheduleDate, scheduleStart, scheduleEnd, scheduleType 
 FROM Schedules;
