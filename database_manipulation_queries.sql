@@ -36,15 +36,15 @@ SELECT scheduleID, scheduleDate, scheduleStart, scheduleEnd, scheduleType
 FROM Schedules
 ORDER BY scheduleDate, scheduleStart;
 
--- Get one customer’s data for the Update Customer form.
+-- Get a customer’s data for the Update Customer form.
 -- Retrieves details of a single customer using their ID, so the Update Customer form can be pre-filled.
 -- Makes updating easier without re-entering all their info.
 SELECT customerID, firstName, lastName, email, phoneNumber, tablePreference 
 FROM Customers 
 WHERE customerID = :customerID_selected_from_customer_page;
 
--- Get a single reservation’s details for the Update Reservation form.
--- Fetches a specific reservation’s details, so staff can make edits like changing time or party size.
+-- Fetches a specific reservation’s details for the Update Reservation form, 
+-- so staff can make edits like changing time or party size.
 SELECT reservationID, customerID, tableID, reservationDate, reservationTime, 
        partySize, reservationStatus 
 FROM Reservations 
