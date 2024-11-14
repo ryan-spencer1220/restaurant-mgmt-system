@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" media="screen" href="formStyles.css" />
-    <title>New Table</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/formStyles.css" />
+    <title>Update Table</title>
   </head>
   <body>
     <div class="form-container">
-      <h3>Add New Table</h3>
-      <form action="/add-table" method="POST">
+      <h3>Update Table</h3>
+      <form action="../home_pages/tables.html" method="POST">
         <label for="tableSection">Table Section</label>
         <input type="text" id="tableSection" name="tableSection" required />
 
@@ -32,7 +32,7 @@
           <option value="Occupied">Occupied</option>
         </select>
         <div class="flex">
-          <button type="submit" class="button">Add Table</button>
+          <button type="submit" class="button">Update Table</button>
         </div>
       </form>
     </div>

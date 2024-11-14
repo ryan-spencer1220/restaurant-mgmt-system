@@ -19,9 +19,16 @@ body {
   text-align: center;
 }
 
-.links {
+.links-row-one {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.links-row-two {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
 }
 
 .links a {

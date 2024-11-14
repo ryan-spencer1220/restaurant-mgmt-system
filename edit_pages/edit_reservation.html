@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" media="screen" href="formStyles.css" />
-    <title>New Reservation</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/formStyles.css" />
+    <title>Update Reservation</title>
   </head>
   <body>
     <div class="form-container">
-      <h3>Add New Reservation</h3>
-      <form action="/add-reservation" method="POST">
+      <h3>Update Reservation</h3>
+      <form action="../home_pages/home_pages/reservations.html" method="POST">
         <label for="reservationDate">Reservation Date</label>
         <input type="date" id="reservationDate" name="reservationDate" required />
 
@@ -26,7 +26,7 @@
           <option value="Canceled">Canceled</option>
         </select>
         <div class="flex">
-          <button type="submit" class="button">Add Reservation</button>
+          <button type="submit" class="button">Update Reservation</button>
         </div>
       </form>
     </div>
