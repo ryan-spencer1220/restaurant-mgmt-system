@@ -104,6 +104,14 @@ VALUES (:firstNameInput, :lastNameInput, :phoneNumberInput, :emailInput, :staffR
 INSERT INTO Schedules (scheduleDate, scheduleStart, scheduleEnd, scheduleType) 
 VALUES (:scheduleDateInput, :scheduleStartInput, :scheduleEndInput, :scheduleTypeInput);
 
+-- Links a staff member to a specific schedule, useful for shift planning.
+INSERT INTO staffSchedules (staffID, scheduleID) 
+VALUES (:staffIDInput, :scheduleIDInput);
+
+-- Links a staff member to a specific table, great for setting up seating assignments.
+INSERT INTO staffTables (staffID, tableID) 
+VALUES (:staffIDInput, :tableIDInput);
+
 -- Update an existing customer’s details based on the Update Customer form.
 -- Edits customer info like name, contact details, or preferred table location to keep records current.
 UPDATE Customers 
@@ -139,6 +147,20 @@ SET scheduleDate = :scheduleDateInput, scheduleStart = :scheduleStartInput,
     scheduleEnd = :scheduleEndInput, scheduleType = :scheduleTypeInput 
 WHERE scheduleID = :scheduleID_from_update_form;
 
+-- Update the staff and schedule assignment in the staffSchedules table
+-- Allows updating both the staff member and the assigned schedule.
+UPDATE staffSchedules
+SET staffID = :newStaffID, scheduleID = :newScheduleID
+WHERE staffID = :currentStaffID AND scheduleID = :currentScheduleID;
+
+-- Update an existing entry in the staffTables table
+-- This updates the assignment of a staff member to a new table
+-- based on their current staffID and tableID pair.
+
+UPDATE staffTables
+SET staffID = :new_staffID, tableID = :new_tableID
+WHERE staffID = :current_staffID AND tableID = :current_tableID;
+
 -- Removes a customer from the system using their unique ID, keeping the list clean and current.
 DELETE FROM Customers 
 WHERE customerID = :customerID_selected_for_delete;
@@ -159,17 +181,9 @@ WHERE staffID = :staffID_selected_for_delete;
 DELETE FROM Schedules 
 WHERE scheduleID = :scheduleID_selected_for_delete;
 
--- Links a staff member to a specific schedule, useful for shift planning.
-INSERT INTO staffSchedules (staffID, scheduleID) 
-VALUES (:staffIDInput, :scheduleIDInput);
-
 -- Removes a staff member’s association with a particular shift, helping adjust schedules.
 DELETE FROM staffSchedules 
 WHERE staffID = :staffID_selected AND scheduleID = :scheduleID_selected;
-
--- Links a staff member to a specific table, great for setting up seating assignments.
-INSERT INTO staffTables (staffID, tableID) 
-VALUES (:staffIDInput, :tableIDInput);
 
 -- Removes a staff member’s association with a particular table, useful if seating arrangements change.
 DELETE FROM staffTables 
